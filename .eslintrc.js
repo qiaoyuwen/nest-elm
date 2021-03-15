@@ -117,7 +117,7 @@ module.exports = {
     '@typescript-eslint/no-parameter-properties': [
       'error',
       {
-        allows: ['private readonly'],
+        allows: ['private readonly', 'private'],
       },
     ],
     'no-redeclare': 'off',

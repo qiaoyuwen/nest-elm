@@ -4,6 +4,8 @@ import { Logger } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
+declare const module: any;
+
 function createDoc(app: INestApplication) {
   const config = new DocumentBuilder()
     .setTitle('Nest ELM')
@@ -20,6 +22,10 @@ async function bootstrap() {
   createDoc(app);
   const port = 9999;
   await app.listen(port);
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
   Logger.log(`server started on ${port} port`);
 }
 bootstrap();
