@@ -1,9 +1,5 @@
 module.exports = {
-  extends: [
-    'eslint-config-airbnb-base',
-    'prettier',
-    'plugin:@typescript-eslint/recommended',
-  ],
+  extends: ['eslint-config-airbnb-base', 'prettier', 'plugin:@typescript-eslint/recommended'],
   parser: '@typescript-eslint/parser',
   plugins: ['eslint-comments', 'jest', 'unicorn'],
   env: {
@@ -118,7 +114,12 @@ module.exports = {
     '@typescript-eslint/no-misused-promises': 0,
     '@typescript-eslint/no-namespace': 1,
     '@typescript-eslint/no-non-null-asserted-optional-chain': 'error',
-    '@typescript-eslint/no-parameter-properties': 'error',
+    '@typescript-eslint/no-parameter-properties': [
+      'error',
+      {
+        allows: ['private readonly'],
+      },
+    ],
     'no-redeclare': 'off',
     '@typescript-eslint/no-redeclare': 'error',
     '@typescript-eslint/no-require-imports': 0,
