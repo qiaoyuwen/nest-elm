@@ -3,6 +3,7 @@ import type { INestApplication } from '@nestjs/common';
 import { Logger } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { ControllerName as CityDocTag } from '@/cities/city.constant';
 
 declare const module: any;
 
@@ -11,7 +12,7 @@ function createDoc(app: INestApplication) {
     .setTitle('Nest ELM')
     .setDescription('The Nest ELM API description')
     .setVersion('1.0.0')
-    .addTag('cities')
+    .addTag(CityDocTag)
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
