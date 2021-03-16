@@ -1,3 +1,4 @@
+import type { Connection } from 'typeorm';
 import { createConnection, getConnection } from 'typeorm';
 import { getMetadataArgsStorage } from 'typeorm';
 import { DATABASE_CONNECTION } from './constant';
@@ -6,7 +7,7 @@ export const databaseProviders = [
   {
     provide: DATABASE_CONNECTION,
     useFactory: async () => {
-      let connection;
+      let connection: Connection;
       try {
         connection = getConnection();
       } catch {

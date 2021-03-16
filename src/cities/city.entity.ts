@@ -17,10 +17,10 @@ export class City {
   @Column('int')
   sort: number;
 
-  @Column('float')
+  @Column('double')
   latitude: number;
 
-  @Column('float')
+  @Column('double')
   longitude: number;
 
   @Column('boolean')
@@ -28,4 +28,7 @@ export class City {
 
   @Column({ length: 128 })
   pinyin: string;
+
+  @Column('boolean')
+  isHot: boolean;
 }
