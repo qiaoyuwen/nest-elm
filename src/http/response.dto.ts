@@ -1,5 +1,7 @@
+import type { ResponseMessage } from './constant';
+
 export class ResponseDataDTO {
   statusCode: number;
-  message: string;
+  message: ResponseMessage;
   error?: Record<string, string>;
 }
