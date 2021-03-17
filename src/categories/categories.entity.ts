@@ -14,13 +14,13 @@ export class CategoryEntity {
   @Column({ length: 128 })
   title: string;
 
-  @Column({ length: 512 })
+  @Column({ length: 1024 })
   link: string;
 
-  @Column({ length: 512 })
+  @Column({ length: 1024 })
   imageUrl: string;
 
-  @Column({ length: 512 })
+  @Column({ length: 1024 })
   iconUrl: string;
 
   @Column({ length: 128 })
