@@ -4,8 +4,10 @@ import { Logger } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ControllerName as CityDocTag } from '@/cities/city.constant';
+import * as chalk from 'chalk';
+import * as internalIp from 'internal-ip';
 
-declare const module: any;
+const ipv4 = internalIp.v4.sync();
 
 function createDoc(app: INestApplication) {
   const config = new DocumentBuilder()
@@ -15,18 +17,23 @@ function createDoc(app: INestApplication) {
     .addTag(CityDocTag)
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('/docs', app, document);
 }
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('/api');
   createDoc(app);
   const port = 9999;
-  await app.listen(port);
-  if (module.hot) {
-    module.hot.accept();
-    module.hot.dispose(() => app.close());
-  }
-  Logger.log(`server started on ${port} port`);
+  await app.listen(port, '0.0.0.0', () => {
+    Logger.log(`
+    App running at:
+    - Local:   ${chalk.green(`http://localhost:${port}/api/`)}
+    - Network: ${chalk.green(`http://${ipv4}:${port}/api/`)}
+    Docs running at:
+    - Local:   ${chalk.green(`http://localhost:${port}/docs/`)}
+    - Network: ${chalk.green(`http://${ipv4}:${port}/docs/`)}
+    `);
+  });
 }
 bootstrap();

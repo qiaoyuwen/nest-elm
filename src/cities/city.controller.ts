@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { CitiesService } from './city.service';
-import type { City } from './city.entity';
+import type { CityEntity } from './city.entity';
 import { ApiTags } from '@nestjs/swagger';
 import { ControllerName } from './city.constant';
 
@@ -10,7 +10,7 @@ export class CitiesController {
   constructor(private citiesService: CitiesService) {}
 
   @Get()
-  async findAll(): Promise<City[]> {
+  async findAll(): Promise<CityEntity[]> {
     return this.citiesService.findAll();
   }
 }

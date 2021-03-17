@@ -1,16 +1,16 @@
-import { Injectable, Inject } from '@nestjs/common';
-import type { City } from './city.entity';
-import { CITY_REPOSITORY } from '@/db/constant';
+import { Injectable } from '@nestjs/common';
+import { CityEntity } from './city.entity';
 import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class CitiesService {
   constructor(
-    @Inject(CITY_REPOSITORY)
-    private readonly cityRepository: Repository<City>,
+    @InjectRepository(CityEntity)
+    private readonly cityRepository: Repository<CityEntity>,
   ) {}
 
-  findAll(): Promise<City[]> {
+  findAll(): Promise<CityEntity[]> {
     return this.cityRepository.find();
   }
 }
