@@ -2,8 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import type { INestApplication } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import * as chalk from 'chalk';
-import * as internalIp from 'internal-ip';
+import chalk from 'chalk';
+import internalIp from 'internal-ip';
 
 const ipv4 = internalIp.v4.sync();
 
