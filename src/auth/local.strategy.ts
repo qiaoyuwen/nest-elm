@@ -13,7 +13,13 @@ export class LocalStrategy extends PassportStrategy(Strategy, LocalStrategyName)
     super();
   }
 
-  async validate(username: string, password: string): Promise<AdminEntity> {
+  async validate(
+    username: string,
+    password: string,
+  ): Promise<{
+    success: boolean;
+    user?: AdminEntity;
+  }> {
     // rsa解密
     const decrypt = new NodeRSA(RsaConstants.privateKey);
     decrypt.setOptions({ encryptionScheme: 'pkcs1' });
@@ -25,6 +31,9 @@ export class LocalStrategy extends PassportStrategy(Strategy, LocalStrategyName)
       .digest('hex');
 
     const user = await this.authService.validateUser(username, hmacPassword);
-    return user;
+    return {
+      success: !!user,
+      user,
+    };
   }
 }

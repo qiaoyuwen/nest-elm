@@ -14,12 +14,27 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(@Request() req: { user: AdminEntity }): Promise<LoginDTO> {
-    const data = await this.authService.login(req.user);
+  async login(
+    @Request()
+    req: {
+      user: {
+        success: boolean;
+        user?: AdminEntity;
+      };
+    },
+  ): Promise<LoginDTO> {
+    const userData = req.user;
+    if (userData.success) {
+      const data = await this.authService.login(userData.user);
+      return {
+        statusCode: HttpStatus.OK,
+        message: ResponseMessage.LoginSuccess,
+        data,
+      };
+    }
     return {
-      statusCode: HttpStatus.OK,
-      message: ResponseMessage.LoginSuccess,
-      data,
+      statusCode: HttpStatus.UNAUTHORIZED,
+      message: ResponseMessage.LoginFailed,
     };
   }
 
