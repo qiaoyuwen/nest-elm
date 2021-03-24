@@ -5,6 +5,8 @@ import { JwtAuthGuard } from './jwt-auth.guard';
 import { AuthService } from './auth.service';
 import { ResponseMessage } from '@/http/constant';
 import type { LoginDTO } from './dto/login.dto';
+import { ProfileDTO } from './dto/profile.dto';
+import type { AdminProfileEntity } from '@/admins/admins-profile.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -23,7 +25,13 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Request() req: { user: AdminEntity }) {
-    return req.user;
+  getProfile(@Request() req: { user: AdminProfileEntity }): ProfileDTO {
+    return {
+      statusCode: HttpStatus.OK,
+      message: ResponseMessage.QuerySuccess,
+      data: {
+        user: req.user,
+      },
+    };
   }
 }
