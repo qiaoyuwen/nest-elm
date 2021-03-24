@@ -1,3 +1,4 @@
+import type { AdminEntity } from './../admins/admins.entity';
 import { Controller, Request, Post, UseGuards, Get } from '@nestjs/common';
 import { LocalAuthGuard } from './local-auth.guard';
 import { JwtAuthGuard } from './jwt-auth.guard';
@@ -9,13 +10,13 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(@Request() req) {
+  async login(@Request() req: { user: AdminEntity }) {
     return this.authService.login(req.user);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Request() req) {
+  getProfile(@Request() req: { user: AdminEntity }) {
     return req.user;
   }
 }

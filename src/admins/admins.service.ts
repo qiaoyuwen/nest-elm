@@ -15,4 +15,11 @@ export class AdminsService {
       username,
     });
   }
+
+  save(username: string, password: string) {
+    const user = new AdminEntity();
+    user.username = username;
+    user.password = password;
+    return this.adminRepository.save(user);
+  }
 }

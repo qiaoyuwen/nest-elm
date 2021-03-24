@@ -19,9 +19,9 @@ export class AdminEntity {
   @Column({ type: 'datetime', default: () => 'NOW()' })
   createTime: Date;
 
-  @Column({ type: 'enum', enum: AdminStatusType })
+  @Column({ type: 'enum', enum: AdminStatusType, default: AdminStatusType.Super })
   status: AdminStatusType;
 
-  @Column({ length: 1024 })
+  @Column({ length: 1024, default: 'default.jpg' })
   avatar: string;
 }

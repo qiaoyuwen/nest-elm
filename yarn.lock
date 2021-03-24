@@ -1063,6 +1063,13 @@
   resolved "https://registry.npm.taobao.org/@types/minimist/download/@types/minimist-1.2.1.tgz?cache=0&sync_timestamp=1613379360400&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fminimist%2Fdownload%2F%40types%2Fminimist-1.2.1.tgz#283f669ff76d7b8260df8ab7a4262cc83d988256"
   integrity sha1-KD9mn/dte4Jg34q3pCYsyD2YglY=
 
+"@types/node-rsa@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npm.taobao.org/@types/node-rsa/download/@types/node-rsa-1.1.0.tgz#b0864186c1c468179645517c56d83622595e8813"
+  integrity sha1-sIZBhsHEaBeWRVF8Vtg2IlleiBM=
+  dependencies:
+    "@types/node" "*"
+
 "@types/node@*", "@types/node@^14.14.31":
   version "14.14.34"
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.34.tgz?cache=0&sync_timestamp=1615550693937&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.14.34.tgz#07935194fc049069a1c56c0c274265abeddf88da"
@@ -1670,7 +1677,7 @@ arrify@^1.0.1:
   resolved "https://registry.npm.taobao.org/arrify/download/arrify-1.0.1.tgz?cache=0&sync_timestamp=1589684737833&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Farrify%2Fdownload%2Farrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
   integrity sha1-iYUI2iIm84DfkEcoRWhJwVAaSw0=
 
-asn1@~0.2.3:
+asn1@^0.2.4, asn1@~0.2.3:
   version "0.2.4"
   resolved "https://registry.npm.taobao.org/asn1/download/asn1-0.2.4.tgz#8d2475dfab553bb33e77b54e59e880bb8ce23136"
   integrity sha1-jSR136tVO7M+d7VOWeiAu4ziMTY=
@@ -5654,6 +5661,13 @@ node-releases@^1.1.70:
   version "1.1.71"
   resolved "https://registry.npm.taobao.org/node-releases/download/node-releases-1.1.71.tgz#cb1334b179896b1c89ecfdd4b725fb7bbdfc7dbb"
   integrity sha1-yxM0sXmJaxyJ7P3UtyX7e738fbs=
+
+node-rsa@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npm.taobao.org/node-rsa/download/node-rsa-1.1.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fnode-rsa%2Fdownload%2Fnode-rsa-1.1.1.tgz#efd9ad382097782f506153398496f79e4464434d"
+  integrity sha1-79mtOCCXeC9QYVM5hJb3nkRkQ00=
+  dependencies:
+    asn1 "^0.2.4"
 
 normalize-package-data@^2.3.2, normalize-package-data@^2.5.0:
   version "2.5.0"

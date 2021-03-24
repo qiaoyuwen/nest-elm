@@ -18,6 +18,10 @@ export class AuthService {
     return null;
   }
 
+  async register(username: string, password: string) {
+    return this.adminsService.save(username, password);
+  }
+
   async login(user: AdminEntity) {
     return {
       accessToken: this.jwtService.sign({ ...user }),
