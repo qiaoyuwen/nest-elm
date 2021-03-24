@@ -44,9 +44,7 @@ export class AuthController {
     return {
       statusCode: HttpStatus.OK,
       message: ResponseMessage.QuerySuccess,
-      data: {
-        user: req.user,
-      },
+      data: req.user,
     };
   }
 }
