@@ -11,8 +11,12 @@ export class AuthService {
   ) {}
 
   async validateUser(username: string, password: string): Promise<AdminEntity | null> {
-    const user = await this.adminsService.findOne(username);
-    if (user && user.password === password) {
+    let user = await this.adminsService.findOne(username);
+    if (!user) {
+      // 用户不存在直接注册新用户
+      user = await this.register(username, password);
+    }
+    if (user.password === password) {
       return user;
     }
     return null;

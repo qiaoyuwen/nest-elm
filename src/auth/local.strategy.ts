@@ -24,11 +24,7 @@ export class LocalStrategy extends PassportStrategy(Strategy, LocalStrategyName)
       .update(decryptPassword)
       .digest('hex');
 
-    let user = await this.authService.validateUser(username, hmacPassword);
-    if (!user) {
-      // 没有创建新用户
-      user = await this.authService.register(username, hmacPassword);
-    }
+    const user = await this.authService.validateUser(username, hmacPassword);
     return user;
   }
 }
