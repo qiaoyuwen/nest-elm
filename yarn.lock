@@ -3916,6 +3916,11 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+helmet@^4.4.1:
+  version "4.4.1"
+  resolved "https://registry.npm.taobao.org/helmet/download/helmet-4.4.1.tgz#a17e1444d81d7a83ddc6e6f9bc6e2055b994efe7"
+  integrity sha1-oX4URNgdeoPdxub5vG4gVbmU7+c=
+
 highlight.js@^10.0.0:
   version "10.6.0"
   resolved "https://registry.npm.taobao.org/highlight.js/download/highlight.js-10.6.0.tgz#0073aa71d566906965ba6e1b7be7b2682f5e18b6"

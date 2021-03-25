@@ -4,6 +4,7 @@ import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import chalk from 'chalk';
 import internalIp from 'internal-ip';
+import helmet from 'helmet';
 
 const ipv4 = internalIp.v4.sync();
 
@@ -20,6 +21,7 @@ function createDoc(app: INestApplication) {
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('/api');
+  app.use(helmet());
   createDoc(app);
   const port = 9999;
   await app.listen(port, '0.0.0.0', () => {
