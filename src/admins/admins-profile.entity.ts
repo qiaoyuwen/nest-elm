@@ -15,7 +15,12 @@ export class AdminProfileEntity {
   @Column({ type: 'datetime', default: () => 'NOW()' })
   createTime: Date;
 
-  @Column({ type: 'enum', enum: AdminStatusType, default: AdminStatusType.Super })
+  @Column({
+    type: 'enum',
+    enum: AdminStatusType,
+    default: AdminStatusType.Super,
+    comment: '普通管理员=1，超级管理员=2',
+  })
   status: AdminStatusType;
 
   @Column({ length: 1024, default: 'default.jpg' })
