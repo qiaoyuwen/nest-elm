@@ -4,23 +4,19 @@ import { CitiesModule } from './cities/cities.module';
 import { CategoriesModule } from './categories/categories.module';
 import { AuthModule } from './auth/auth.module';
 import { AdminsModule } from './admins/admins.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import DatabaseConfig, { DatabaseConfigNamespace } from './config/database';
+import AppConfig from './config/app';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '1234567.',
-      database: 'elm',
-      entities: ['dist/**/*.entity.js'],
-      synchronize: true,
-      logging: false,
-      extra: {
-        // If without this filed emoji can't be stored
-        charset: 'utf8mb4_general_ci',
-      },
+    ConfigModule.forRoot({
+      load: [AppConfig, DatabaseConfig],
+      isGlobal: true,
+    }),
+    TypeOrmModule.forRootAsync({
+      useFactory: (config: ConfigService) => config.get(DatabaseConfigNamespace),
+      inject: [ConfigService],
     }),
     CitiesModule,
     CategoriesModule,

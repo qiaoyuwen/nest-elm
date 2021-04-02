@@ -5,6 +5,8 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import chalk from 'chalk';
 import internalIp from 'internal-ip';
 import helmet from 'helmet';
+import type { ConfigService } from '@nestjs/config';
+import type { AppConfig } from './config/app';
 
 const ipv4 = internalIp.v4.sync();
 
@@ -18,22 +20,38 @@ function createDoc(app: INestApplication) {
   SwaggerModule.setup('/docs', app, document);
 }
 
+function getAppConfig(app: INestApplication) {
+  const configService: ConfigService = app.get('ConfigService');
+  const config = configService.get<AppConfig>('app');
+  return config;
+}
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('/api');
   app.use(helmet());
-  createDoc(app);
-  const port = 9999;
+
+  const { port, swagger } = getAppConfig(app);
+
+  if (swagger) {
+    createDoc(app);
+  }
+
   await app.listen(port, '0.0.0.0', () => {
     // eslint-disable-next-line no-console
     console.log(`
     App running at:
     - Local:   ${chalk.green(`http://localhost:${port}/api/`)}
     - Network: ${chalk.green(`http://${ipv4}:${port}/api/`)}
+    `);
+    if (swagger) {
+      // eslint-disable-next-line no-console
+      console.log(`
     Docs running at:
     - Local:   ${chalk.green(`http://localhost:${port}/docs/`)}
     - Network: ${chalk.green(`http://${ipv4}:${port}/docs/`)}
     `);
+    }
   });
 }
 bootstrap();
