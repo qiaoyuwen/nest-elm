@@ -17,9 +17,10 @@ export class AdminsService {
   }
 
   save(username: string, password: string) {
-    const user = new AdminEntity();
-    user.username = username;
-    user.password = password;
+    const user = new AdminEntity({
+      username,
+      password,
+    });
     return this.adminRepository.save(user);
   }
 }

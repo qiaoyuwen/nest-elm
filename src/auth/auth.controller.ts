@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
 import { ResponseMessage } from '@/http/constant';
 import type { LoginDTO } from './dto/login.response.dto';
 import { ProfileDTO } from './dto/profile.response.dto';
-import type { AdminProfileEntity } from '@/admins/admins-profile.entity';
+import { ClassSerializerInterceptor, UseInterceptors } from '@nestjs/common';
 
 @Controller('auth')
 export class AuthController {
@@ -41,12 +41,13 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get('profile')
-  getProfile(@Request() req: { user: AdminProfileEntity }): ProfileDTO {
-    return {
+  getProfile(@Request() req: { user: AdminEntity }): ProfileDTO {
+    return new ProfileDTO({
       statusCode: HttpStatus.OK,
       message: ResponseMessage.QuerySuccess,
       data: req.user,
-    };
+    });
   }
 }

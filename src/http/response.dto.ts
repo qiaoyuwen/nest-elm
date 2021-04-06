@@ -5,4 +5,8 @@ export class ResponseDataDTO {
   statusCode: HttpStatus;
   message: ResponseMessage;
   error?: Record<string, string>;
+
+  constructor(partial: Partial<ResponseDataDTO>) {
+    Object.assign(this, partial);
+  }
 }
