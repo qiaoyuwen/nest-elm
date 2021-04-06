@@ -7,6 +7,7 @@ import internalIp from 'internal-ip';
 import helmet from 'helmet';
 import type { ConfigService } from '@nestjs/config';
 import type { AppConfig } from './config/app';
+import { ValidationPipe } from '@nestjs/common';
 
 const ipv4 = internalIp.v4.sync();
 
@@ -30,6 +31,13 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('/api');
   app.use(helmet());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      forbidUnknownValues: true,
+    }),
+  );
 
   const { port, swagger } = getAppConfig(app);
 

@@ -1,11 +1,12 @@
+import { LoginRequestDto } from './dto/login.request.dto';
 import type { AdminEntity } from './../admins/admins.entity';
-import { Controller, Request, Post, UseGuards, Get, HttpStatus } from '@nestjs/common';
+import { Controller, Request, Post, UseGuards, Get, HttpStatus, Body } from '@nestjs/common';
 import { LocalAuthGuard } from './local-auth.guard';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { AuthService } from './auth.service';
 import { ResponseMessage } from '@/http/constant';
-import type { LoginDTO } from './dto/login.dto';
-import { ProfileDTO } from './dto/profile.dto';
+import type { LoginDTO } from './dto/login.response.dto';
+import { ProfileDTO } from './dto/profile.response.dto';
 import type { AdminProfileEntity } from '@/admins/admins-profile.entity';
 
 @Controller('auth')
@@ -15,6 +16,7 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(
+    @Body() loginRequestDto: LoginRequestDto,
     @Request()
     req: {
       user: {
