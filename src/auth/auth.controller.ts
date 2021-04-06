@@ -1,4 +1,4 @@
-import { LoginRequestDto } from './dto/login.request.dto';
+import { LoginRequestDTO } from './dto/login.request.dto';
 import type { AdminEntity } from './../admins/admins.entity';
 import { Controller, Request, Post, UseGuards, Get, HttpStatus, Body } from '@nestjs/common';
 import { LocalAuthGuard } from './local-auth.guard';
@@ -16,7 +16,7 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(
-    @Body() loginRequestDto: LoginRequestDto,
+    @Body() loginRequestDto: LoginRequestDTO,
     @Request()
     req: {
       user: {
