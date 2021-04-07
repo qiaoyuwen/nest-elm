@@ -5,8 +5,8 @@ import { LocalAuthGuard } from './local-auth.guard';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { AuthService } from './auth.service';
 import { ResponseMessage } from '@/http/constant';
-import type { LoginDTO } from './dto/login.response.dto';
-import { ProfileDTO } from './dto/profile.response.dto';
+import type { LoginResponseDTO } from './dto/login.response.dto';
+import { ProfileResponseDTO } from './dto/profile.response.dto';
 import { ClassSerializerInterceptor, UseInterceptors } from '@nestjs/common';
 
 @Controller('auth')
@@ -24,7 +24,7 @@ export class AuthController {
         user?: AdminEntity;
       };
     },
-  ): Promise<LoginDTO> {
+  ): Promise<LoginResponseDTO> {
     const userData = req.user;
     if (userData.success) {
       const data = await this.authService.login(userData.user);
@@ -43,8 +43,8 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('profile')
-  getProfile(@Request() req: { user: AdminEntity }): ProfileDTO {
-    return new ProfileDTO({
+  getProfile(@Request() req: { user: AdminEntity }): ProfileResponseDTO {
+    return new ProfileResponseDTO({
       statusCode: HttpStatus.OK,
       message: ResponseMessage.QuerySuccess,
       data: req.user,

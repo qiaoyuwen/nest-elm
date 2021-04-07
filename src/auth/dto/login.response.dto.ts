@@ -1,6 +1,6 @@
 import { ResponseDataDTO } from '@/http/response.dto';
 
-export class LoginDTO extends ResponseDataDTO {
+export class LoginResponseDTO extends ResponseDataDTO {
   data?: {
     accessToken: string;
   };
