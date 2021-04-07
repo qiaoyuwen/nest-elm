@@ -8,6 +8,8 @@ import helmet from 'helmet';
 import type { ConfigService } from '@nestjs/config';
 import type { AppConfig } from './config/app';
 import { ValidationPipe } from '@nestjs/common';
+import type { NestExpressApplication } from '@nestjs/platform-express';
+import { join } from 'path';
 
 const ipv4 = internalIp.v4.sync();
 
@@ -29,7 +31,7 @@ function getAppConfig(app: INestApplication) {
 }
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.setGlobalPrefix('/api');
   app.use(helmet());
   app.useGlobalPipes(
@@ -40,6 +42,9 @@ async function bootstrap() {
       forbidUnknownValues: true,
     }),
   );
+  app.useStaticAssets(join(__dirname, '..', 'static'), {
+    prefix: '/static',
+  });
 
   const { port, swagger } = getAppConfig(app);
 

@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
     TypeOrmModule.forFeature([FileEntity]),
     MulterModule.register({
       storage: diskStorage({
-        destination: `./upload/files/${moment().format('YYYY-MM-DD')}`,
+        destination: `./static/upload/files/${moment().format('YYYY-MM-DD')}`,
         filename: (req, file, cb) => {
           const filename = `${uuidv4()}.${file.mimetype.split('/')[1]}`;
           return cb(null, filename);
