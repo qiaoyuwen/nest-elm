@@ -9,6 +9,7 @@ import { FilesModule } from './files/files.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import DatabaseConfig, { DatabaseConfigNamespace } from './config/database';
 import AppConfig from './config/app';
+import { ShopCategoriesModule } from './shop-categories/shop-categories.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import AppConfig from './config/app';
     AdminsModule,
     FilesModule,
     ShopsModule,
+    ShopCategoriesModule,
   ],
 })
 export class AppModule {}

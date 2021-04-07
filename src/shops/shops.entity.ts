@@ -11,7 +11,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { ShopActivityEntity } from './activities/activities.entity';
-import { ShopCategoryEntity } from './categories/categories.entity';
+import { ShopCategoryEntity } from '../shop-categories/shop-categories.entity';
 import { ShopDeliveryModeEntity } from './delivery-modes/delivery-modes.entity';
 import { ShopIdentificationEntity } from './identifications/identifications.entity';
 
