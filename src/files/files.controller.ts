@@ -9,7 +9,7 @@ import {
   Request,
   ClassSerializerInterceptor,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { ControllerName } from './files.constant';
 import { ResponseMessage } from '@/http/constant';
 import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
@@ -17,6 +17,7 @@ import { FilesService } from './files.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import type { AdminEntity } from '@/admins/admins.entity';
 import { FileEntity } from './files.entity';
+import { UploadRequestDTO } from './dto/upload.request.dto';
 
 @ApiTags(ControllerName)
 @Controller(ControllerName)
@@ -26,6 +27,10 @@ export class FilesController {
   @Post()
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'), ClassSerializerInterceptor)
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    type: UploadRequestDTO,
+  })
   async upload(
     @UploadedFile() file: Express.Multer.File,
     @Request() req: { user: AdminEntity },
