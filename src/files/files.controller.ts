@@ -9,7 +9,7 @@ import {
   Request,
   ClassSerializerInterceptor,
 } from '@nestjs/common';
-import { ApiTags, ApiBody, ApiConsumes } from '@nestjs/swagger';
+import { ApiTags, ApiBody, ApiConsumes, ApiBearerAuth } from '@nestjs/swagger';
 import { ControllerName } from './files.constant';
 import { ResponseMessage } from '@/http/constant';
 import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
@@ -21,11 +21,12 @@ import { UploadRequestDTO } from './dto/upload.request.dto';
 
 @ApiTags(ControllerName)
 @Controller(ControllerName)
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 export class FilesController {
   constructor(private filesService: FilesService) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'), ClassSerializerInterceptor)
   @ApiConsumes('multipart/form-data')
   @ApiBody({

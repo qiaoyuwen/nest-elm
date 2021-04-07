@@ -1,5 +1,6 @@
 export const LocalStrategyName = 'local';
 export const JwtStrategyName = 'jwt';
+export const ControllerName = 'auth';
 
 export const JwtConstants = {
   secret: 'secretKey',

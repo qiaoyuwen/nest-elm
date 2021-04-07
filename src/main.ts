@@ -16,6 +16,7 @@ function createDoc(app: INestApplication) {
     .setTitle('Nest ELM')
     .setDescription('The Nest ELM API description')
     .setVersion('1.0.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/docs', app, document);

@@ -8,8 +8,11 @@ import { ResponseMessage } from '@/http/constant';
 import type { LoginResponseDTO } from './dto/login.response.dto';
 import { ProfileResponseDTO } from './dto/profile.response.dto';
 import { ClassSerializerInterceptor, UseInterceptors } from '@nestjs/common';
+import { ControllerName } from './constants';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
-@Controller('auth')
+@ApiTags(ControllerName)
+@Controller(ControllerName)
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
@@ -43,6 +46,7 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('profile')
+  @ApiBearerAuth()
   getProfile(@Request() req: { user: AdminEntity }): ProfileResponseDTO {
     return new ProfileResponseDTO({
       statusCode: HttpStatus.OK,
