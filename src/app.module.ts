@@ -1,3 +1,4 @@
+import { ShopsModule } from './shops/shops.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CitiesModule } from './cities/cities.module';
@@ -24,6 +25,7 @@ import AppConfig from './config/app';
     AuthModule,
     AdminsModule,
     FilesModule,
+    ShopsModule,
   ],
 })
 export class AppModule {}
