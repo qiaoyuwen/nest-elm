@@ -6,4 +6,9 @@ export class FindAllShopCategoriesRequestDTO {
   @IsPositive()
   @IsInt()
   level?: number;
+
+  @ValidateIf(validateIfNotUndefined('parentId'))
+  @IsPositive()
+  @IsInt()
+  parentId?: number;
 }
