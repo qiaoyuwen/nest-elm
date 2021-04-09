@@ -32,6 +32,12 @@ export class AdminEntity {
   @Column({ length: 1024, default: 'default.jpg' })
   avatar: string;
 
+  @Exclude()
+  iat: number;
+
+  @Exclude()
+  exp: number;
+
   constructor(partial: Partial<AdminEntity>) {
     Object.assign(this, partial);
   }
