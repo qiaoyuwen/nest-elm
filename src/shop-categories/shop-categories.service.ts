@@ -1,3 +1,4 @@
+import type { FindAllShopCategoriesRequestDTO } from './dto/find-all-shop-categories.request.dto';
 import { Injectable } from '@nestjs/common';
 import { ShopCategoryEntity } from './shop-categories.entity';
 import { Repository } from 'typeorm';
@@ -10,7 +11,7 @@ export class ShopCategoriesService {
     private readonly shopCategoryRepository: Repository<ShopCategoryEntity>,
   ) {}
 
-  findAll(): Promise<ShopCategoryEntity[]> {
-    return this.shopCategoryRepository.find();
+  findAll(query: FindAllShopCategoriesRequestDTO): Promise<ShopCategoryEntity[]> {
+    return this.shopCategoryRepository.find(query);
   }
 }
