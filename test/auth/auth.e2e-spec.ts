@@ -16,7 +16,7 @@ import { JwtConstants, RsaConstants } from '@/auth/constants';
 import NodeRSA from 'node-rsa';
 import { ResponseMessage } from '@/http/constant';
 
-describe('CategoriesModule (e2e)', () => {
+describe('AuthController (e2e)', () => {
   let app: INestApplication;
   const testUserList = [
     new AdminEntity({
