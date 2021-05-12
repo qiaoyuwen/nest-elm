@@ -37,7 +37,7 @@ describe('CategoriesController', () => {
   describe('findAll', () => {
     it('should return an array of categories', async () => {
       const result = [];
-      jest.spyOn(service, 'findAll').mockImplementation(async () => []);
+      jest.spyOn(service, 'findAll').mockImplementation(async () => result);
 
       expect(await controller.findAll()).toStrictEqual({
         data: result,
