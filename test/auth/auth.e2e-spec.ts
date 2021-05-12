@@ -15,26 +15,10 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtConstants, RsaConstants } from '@/auth/constants';
 import NodeRSA from 'node-rsa';
 import { ResponseMessage } from '@/http/constant';
+import { mockAdminService } from '@/mock/admin';
 
 describe('AuthController (e2e)', () => {
   let app: INestApplication;
-  const testUserList = [
-    new AdminEntity({
-      username: 'qiaoyuwen',
-      password: 'b79babf5cefc3bc52758055c25937b235464cb3c',
-    }),
-  ];
-
-  const mockAdminService = {
-    findOne: ({ username }: { username: string }) => {
-      return testUserList.find((user) => user.username === username);
-    },
-    save: (username: string, password: string) =>
-      new AdminEntity({
-        username,
-        password,
-      }),
-  };
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
