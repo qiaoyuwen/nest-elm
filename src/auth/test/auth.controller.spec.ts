@@ -10,7 +10,6 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { AuthController } from '../auth.controller';
 import { AuthService } from '../auth.service';
 import { JwtConstants } from '../constants';
-import { ProfileResponseDTO } from '../dto/profile.response.dto';
 import { JwtStrategy } from '../jwt.strategy';
 import { LocalStrategy } from '../local.strategy';
 
@@ -81,13 +80,11 @@ describe('AuthController', () => {
         authController.getProfile({
           user,
         }),
-      ).toStrictEqual(
-        new ProfileResponseDTO({
-          data: user,
-          statusCode: HttpStatus.OK,
-          message: ResponseMessage.QuerySuccess,
-        }),
-      );
+      ).toStrictEqual({
+        data: user,
+        statusCode: HttpStatus.OK,
+        message: ResponseMessage.QuerySuccess,
+      });
     });
   });
 });
