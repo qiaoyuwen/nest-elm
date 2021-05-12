@@ -48,10 +48,10 @@ export class AuthController {
   @Get('profile')
   @ApiBearerAuth()
   getProfile(@Request() req: { user: AdminEntity }): ProfileResponseDTO {
-    return {
+    return new ProfileResponseDTO({
       statusCode: HttpStatus.OK,
       message: ResponseMessage.QuerySuccess,
       data: req.user,
-    };
+    });
   }
 }

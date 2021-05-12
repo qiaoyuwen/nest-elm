@@ -1,6 +1,6 @@
 import type { TestingModule } from '@nestjs/testing';
 import { Test } from '@nestjs/testing';
-import type { INestApplication, CanActivate } from '@nestjs/common';
+import type { INestApplication } from '@nestjs/common';
 import { HttpStatus } from '@nestjs/common';
 import request from 'supertest';
 import { CategoriesController } from '@/categories/categories.controller';
@@ -9,11 +9,11 @@ import { CategoryEntity } from '@/categories/categories.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
 import { ResponseMessage } from '@/http/constant';
+import { mockCategoriesService } from '@/mock/categories';
+import { mockGuard } from '@/mock/guard';
 
 describe('CategoriesModule (e2e)', () => {
   let app: INestApplication;
-  const mockService = { findAll: () => [] };
-  const mockGuard: CanActivate = { canActivate: jest.fn(() => true) };
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -21,13 +21,13 @@ describe('CategoriesModule (e2e)', () => {
         CategoriesService,
         {
           provide: getRepositoryToken(CategoryEntity),
-          useValue: mockService,
+          useValue: mockCategoriesService,
         },
       ],
       controllers: [CategoriesController],
     })
       .overrideProvider(CategoriesService)
-      .useValue(mockService)
+      .useValue(mockCategoriesService)
       .overrideGuard(JwtAuthGuard)
       .useValue(mockGuard)
       .compile();
@@ -40,7 +40,7 @@ describe('CategoriesModule (e2e)', () => {
     return request(app.getHttpServer()).get('/categories').expect(200).expect({
       statusCode: HttpStatus.OK,
       message: ResponseMessage.QuerySuccess,
-      data: mockService.findAll(),
+      data: mockCategoriesService.findAll(),
     });
   });
 
