@@ -1,6 +1,6 @@
 import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
 import { ResponseMessage } from '@/http/constant';
-import { mockCitesService } from '@/mock/cities';
+import { mockCitiesService } from '@/mock/cities';
 import { mockGuard } from '@/mock/guard';
 import { HttpStatus } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
@@ -18,13 +18,13 @@ describe('CitiesController', () => {
         CitiesService,
         {
           provide: getRepositoryToken(CityEntity),
-          useValue: mockCitesService,
+          useValue: mockCitiesService,
         },
       ],
       controllers: [CitiesController],
     })
       .overrideProvider(CitiesService)
-      .useValue(mockCitesService)
+      .useValue(mockCitiesService)
       .overrideGuard(JwtAuthGuard)
       .useValue(mockGuard)
       .compile();

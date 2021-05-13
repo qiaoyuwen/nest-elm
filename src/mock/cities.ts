@@ -1,1 +1,1 @@
-export const mockCitesService = { findAll: () => [] };
+export const mockCitiesService = { findAll: () => [] };
