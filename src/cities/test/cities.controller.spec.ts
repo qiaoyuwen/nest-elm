@@ -1,39 +1,39 @@
 import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
 import { ResponseMessage } from '@/http/constant';
-import { mockCategoriesService } from '@/mock/categories';
+import { mockCitesService } from '@/mock/cities';
 import { mockGuard } from '@/mock/guard';
 import { HttpStatus } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { CategoriesController } from '../categories.controller';
-import { CategoryEntity } from '../categories.entity';
-import { CategoriesService } from '../categories.service';
+import { CitiesController } from '../cities.controller';
+import { CityEntity } from '../cities.entity';
+import { CitiesService } from '../cities.service';
 
-describe('CategoriesController', () => {
-  let controller: CategoriesController;
+describe('CitiesController', () => {
+  let controller: CitiesController;
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
-        CategoriesService,
+        CitiesService,
         {
-          provide: getRepositoryToken(CategoryEntity),
-          useValue: mockCategoriesService,
+          provide: getRepositoryToken(CityEntity),
+          useValue: mockCitesService,
         },
       ],
-      controllers: [CategoriesController],
+      controllers: [CitiesController],
     })
-      .overrideProvider(CategoriesService)
-      .useValue(mockCategoriesService)
+      .overrideProvider(CitiesService)
+      .useValue(mockCitesService)
       .overrideGuard(JwtAuthGuard)
       .useValue(mockGuard)
       .compile();
 
-    controller = moduleRef.get<CategoriesController>(CategoriesController);
+    controller = moduleRef.get<CitiesController>(CitiesController);
   });
 
   describe('findAll', () => {
-    it('should return an array of categories', async () => {
+    it('should return an array of cities', async () => {
       expect(await controller.findAll()).toStrictEqual({
         data: [],
         statusCode: HttpStatus.OK,
