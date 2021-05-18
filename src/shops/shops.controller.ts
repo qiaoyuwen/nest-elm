@@ -1,5 +1,5 @@
 import type { FindOneShopResponseDTO } from './dto/find-one-shop.response.dto';
-import { Controller, Get, HttpStatus, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Param, Query, UseGuards } from '@nestjs/common';
 import { ShopsService } from './shops.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ControllerName } from './shops.constant';
@@ -17,7 +17,7 @@ export class ShopsController {
   constructor(private shopsService: ShopsService) {}
 
   @Get()
-  async findAll(@Param() params: PaginationRequestDTO): Promise<FindAllShopsResponseDTO> {
+  async findAll(@Query() params: PaginationRequestDTO): Promise<FindAllShopsResponseDTO> {
     const [list, total] = await this.shopsService.findAll(params);
     return {
       statusCode: HttpStatus.OK,

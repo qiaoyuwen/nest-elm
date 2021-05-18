@@ -1,8 +1,8 @@
-export class PaginationRequestDTO {
-  current: number;
-  pageSize: number;
+import { IsInt } from 'class-validator';
 
-  constructor(partial: Partial<PaginationRequestDTO>) {
-    Object.assign(this, partial);
-  }
+export class PaginationRequestDTO {
+  @IsInt()
+  current: number;
+  @IsInt()
+  pageSize: number;
 }
