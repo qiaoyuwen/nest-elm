@@ -34,8 +34,18 @@ describe('ShopsController', () => {
 
   describe('findAll', () => {
     it('should return an array of shops', async () => {
-      expect(await controller.findAll()).toStrictEqual({
-        data: [],
+      expect(
+        await controller.findAll({
+          current: 1,
+          pageSize: 10,
+        }),
+      ).toStrictEqual({
+        data: {
+          list: [],
+          current: 1,
+          pageSize: 10,
+          total: 0,
+        },
         statusCode: HttpStatus.OK,
         message: ResponseMessage.QuerySuccess,
       });

@@ -37,11 +37,24 @@ describe('ShopsModule (e2e)', () => {
   });
 
   it('/shops (GET)', () => {
-    return request(app.getHttpServer()).get('/shops').expect(200).expect({
-      statusCode: HttpStatus.OK,
-      message: ResponseMessage.QuerySuccess,
-      data: mockShopsService.findAll(),
-    });
+    const [mockList, mockTotal] = mockShopsService.findAll();
+    return request(app.getHttpServer())
+      .get('/shops')
+      .query({
+        current: 1,
+        pageSize: 10,
+      })
+      .expect(200)
+      .expect({
+        statusCode: HttpStatus.OK,
+        message: ResponseMessage.QuerySuccess,
+        data: {
+          list: mockList,
+          current: '1',
+          pageSize: '10',
+          total: mockTotal,
+        },
+      });
   });
 
   it('/shops/:id (GET)', () => {
