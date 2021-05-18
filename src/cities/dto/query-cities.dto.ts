@@ -1,6 +1,6 @@
-import { ResponseDataDTO } from '@/http/response.dto';
+import { ResponseDTO } from '@/http/response.dto';
 import type { CityEntity } from '../cities.entity';
 
-export class QueryCitiesDTO extends ResponseDataDTO {
+export class QueryCitiesDTO extends ResponseDTO {
   data: CityEntity[];
 }

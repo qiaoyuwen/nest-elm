@@ -1,6 +1,6 @@
-import { ResponseDataDTO } from '@/http/response.dto';
-import type { ShopEntity } from '../shops.entity';
+import { ResponseDTO } from '@/http/response.dto';
+import type { ShopsPaginationDTO } from './shops-pagination.dto';
 
-export class FindAllShopsResponseDTO extends ResponseDataDTO {
-  data: ShopEntity[];
+export class FindAllShopsResponseDTO extends ResponseDTO {
+  data: ShopsPaginationDTO;
 }

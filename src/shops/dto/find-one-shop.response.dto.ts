@@ -1,6 +1,6 @@
-import { ResponseDataDTO } from '@/http/response.dto';
+import { ResponseDTO } from '@/http/response.dto';
 import type { ShopEntity } from '../shops.entity';
 
-export class FindOneShopResponseDTO extends ResponseDataDTO {
+export class FindOneShopResponseDTO extends ResponseDTO {
   data: ShopEntity;
 }

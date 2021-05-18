@@ -1,7 +1,7 @@
 import type { AdminEntity } from '@/admins/admins.entity';
-import { ResponseDataDTO } from '@/http/response.dto';
+import { ResponseDTO } from '@/http/response.dto';
 
-export class ProfileResponseDTO extends ResponseDataDTO {
+export class ProfileResponseDTO extends ResponseDTO {
   data: AdminEntity;
 
   constructor(partial: Partial<ProfileResponseDTO>) {

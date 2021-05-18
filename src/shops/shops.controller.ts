@@ -3,10 +3,11 @@ import { Controller, Get, HttpStatus, Param, UseGuards } from '@nestjs/common';
 import { ShopsService } from './shops.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ControllerName } from './shops.constant';
-import type { FindAllShopsResponseDTO } from './dto/find-all-shops.response.dto';
 import { ResponseMessage } from '@/http/constant';
 import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
 import { FindOneShopRequestDTO } from './dto/find-one-shop.request.dto';
+import { PaginationRequestDTO } from '@/http/pagination.request.dto';
+import type { FindAllShopsResponseDTO } from './dto/find-all-shops.response.dto';
 
 @ApiTags(ControllerName)
 @Controller(ControllerName)
@@ -16,12 +17,17 @@ export class ShopsController {
   constructor(private shopsService: ShopsService) {}
 
   @Get()
-  async findAll(): Promise<FindAllShopsResponseDTO> {
-    const data = await this.shopsService.findAll();
+  async findAll(@Param() params: PaginationRequestDTO): Promise<FindAllShopsResponseDTO> {
+    const [list, total] = await this.shopsService.findAll(params);
     return {
       statusCode: HttpStatus.OK,
       message: ResponseMessage.QuerySuccess,
-      data,
+      data: {
+        list,
+        current: params.current,
+        pageSize: params.pageSize,
+        total,
+      },
     };
   }
 
