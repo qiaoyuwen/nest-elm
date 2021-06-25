@@ -20,20 +20,26 @@ export class LocalStrategy extends PassportStrategy(Strategy, LocalStrategyName)
     success: boolean;
     user?: AdminEntity;
   }> {
-    // rsa解密
-    const decrypt = new NodeRSA(RsaConstants.privateKey);
-    decrypt.setOptions({ encryptionScheme: 'pkcs1' });
-    const decryptPassword = decrypt.decrypt(password, 'utf8');
+    try {
+      // rsa解密
+      const decrypt = new NodeRSA(RsaConstants.privateKey);
+      decrypt.setOptions({ encryptionScheme: 'pkcs1' });
+      const decryptPassword = decrypt.decrypt(password, 'utf8');
 
-    // hmac加密
-    const hmacPassword = Crypto.createHmac('sha1', RsaConstants.privateKey)
-      .update(decryptPassword)
-      .digest('hex');
+      // hmac加密
+      const hmacPassword = Crypto.createHmac('sha1', RsaConstants.privateKey)
+        .update(decryptPassword)
+        .digest('hex');
 
-    const user = await this.authService.validateUser(username, hmacPassword);
-    return {
-      success: !!user,
-      user,
-    };
+      const user = await this.authService.validateUser(username, hmacPassword);
+      return {
+        success: !!user,
+        user,
+      };
+    } catch (e) {
+      return {
+        success: false,
+      };
+    }
   }
 }
