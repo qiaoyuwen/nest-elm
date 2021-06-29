@@ -24,6 +24,7 @@ import { CreateTemplateRequestDTO } from './dto/create-template.request.dto';
 import { TemplateEntity } from './templates.entity';
 import { UpdateTemplateRequestDTO } from './dto/update-template.request.dto';
 import type { AdminEntity } from '@/admins/admins.entity';
+import { GetValueRequestDTO } from './dto/get-value-request.dto';
 
 @ApiTags(ControllerName)
 @Controller(ControllerName)
@@ -47,16 +48,6 @@ export class TemplatesController {
     };
   }
 
-  @Get(':id')
-  async findOne(@Param() params: FindOneTemplateRequestDTO): Promise<FindOneTemplateResponseDTO> {
-    const data = await this.templatesService.findOne(params.id);
-    return {
-      statusCode: HttpStatus.OK,
-      message: ResponseMessage.QuerySuccess,
-      data,
-    };
-  }
-
   @Post()
   async create(
     @Body() body: CreateTemplateRequestDTO,
@@ -70,6 +61,26 @@ export class TemplatesController {
     return {
       statusCode: HttpStatus.OK,
       message: ResponseMessage.CreateSuccess,
+      data,
+    };
+  }
+
+  @Get('getValue')
+  async getValue(@Query() params: GetValueRequestDTO) {
+    const data = await this.templatesService.getValue(params.tableName, params.fieldName);
+    return {
+      statusCode: HttpStatus.OK,
+      message: ResponseMessage.QuerySuccess,
+      data,
+    };
+  }
+
+  @Get(':id')
+  async findOne(@Param() params: FindOneTemplateRequestDTO): Promise<FindOneTemplateResponseDTO> {
+    const data = await this.templatesService.findOne(params.id);
+    return {
+      statusCode: HttpStatus.OK,
+      message: ResponseMessage.QuerySuccess,
       data,
     };
   }

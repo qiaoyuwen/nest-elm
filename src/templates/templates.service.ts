@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { TemplateEntity } from './templates.entity';
-import { Repository } from 'typeorm';
+import { Repository, getConnection } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import type { PaginationRequestDTO } from '@/http/pagination.request.dto';
 
@@ -28,5 +28,11 @@ export class TemplatesService {
 
   remove(id: number) {
     return this.templateRepository.delete(id);
+  }
+
+  async getValue(tableName: string, fieldName: string) {
+    const connection = getConnection();
+    const rowData = await connection.query(`select ${fieldName} from ${tableName} limit 1`);
+    return rowData[0]?.[fieldName] as string;
   }
 }
