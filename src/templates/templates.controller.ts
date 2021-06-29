@@ -25,6 +25,7 @@ import { TemplateEntity } from './templates.entity';
 import { UpdateTemplateRequestDTO } from './dto/update-template.request.dto';
 import type { AdminEntity } from '@/admins/admins.entity';
 import { GetValueRequestDTO } from './dto/get-value-request.dto';
+import { GetTableValueRequestDTO } from './dto/get-table-value-request.dto';
 
 @ApiTags(ControllerName)
 @Controller(ControllerName)
@@ -68,6 +69,16 @@ export class TemplatesController {
   @Get('getValue')
   async getValue(@Query() params: GetValueRequestDTO) {
     const data = await this.templatesService.getValue(params.tableName, params.fieldName);
+    return {
+      statusCode: HttpStatus.OK,
+      message: ResponseMessage.QuerySuccess,
+      data,
+    };
+  }
+
+  @Get('getTableValue')
+  async getTableValue(@Query() params: GetTableValueRequestDTO) {
+    const data = await this.templatesService.getTableValue(params.tableName);
     return {
       statusCode: HttpStatus.OK,
       message: ResponseMessage.QuerySuccess,

@@ -35,4 +35,15 @@ export class TemplatesService {
     const rowData = await connection.query(`select ${fieldName} from ${tableName} limit 1`);
     return rowData[0]?.[fieldName] as string;
   }
+
+  async getTableValue(tableName: string) {
+    const connection = getConnection();
+    const fields = await connection.query(`select column_name from information_schema.COLUMNS
+    WHERE TABLE_SCHEMA = 'elm' AND TABLE_NAME = '${tableName}';`);
+    const values = await connection.query(`select * from ${tableName}`);
+    return {
+      fields,
+      values,
+    };
+  }
 }
