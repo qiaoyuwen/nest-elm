@@ -21,4 +21,8 @@ export class TemplatesService {
   findOne(id: number): Promise<TemplateEntity> {
     return this.templateRepository.findOne(id);
   }
+
+  save(item: TemplateEntity): Promise<TemplateEntity> {
+    return this.templateRepository.save(item);
+  }
 }

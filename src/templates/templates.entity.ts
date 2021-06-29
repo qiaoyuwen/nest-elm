@@ -12,7 +12,7 @@ export class TemplateEntity {
   @Column({ type: 'datetime', default: () => 'NOW()' })
   createTime: Date;
 
-  @Column({ type: 'longtext' })
+  @Column({ type: 'longtext', default: null })
   content: string;
 
   @ManyToOne(() => AdminEntity)
