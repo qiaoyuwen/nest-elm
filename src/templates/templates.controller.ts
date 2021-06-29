@@ -9,6 +9,8 @@ import {
   Put,
   Query,
   UseGuards,
+  Request,
+  Delete,
 } from '@nestjs/common';
 import { TemplatesService } from './templates.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -21,6 +23,7 @@ import type { FindAllTemplatesResponseDTO } from './dto/find-all-templates.respo
 import { CreateTemplateRequestDTO } from './dto/create-template.request.dto';
 import { TemplateEntity } from './templates.entity';
 import { UpdateTemplateRequestDTO } from './dto/update-template.request.dto';
+import type { AdminEntity } from '@/admins/admins.entity';
 
 @ApiTags(ControllerName)
 @Controller(ControllerName)
@@ -55,9 +58,13 @@ export class TemplatesController {
   }
 
   @Post()
-  async create(@Body() body: CreateTemplateRequestDTO): Promise<FindOneTemplateResponseDTO> {
+  async create(
+    @Body() body: CreateTemplateRequestDTO,
+    @Request() req: { user: AdminEntity },
+  ): Promise<FindOneTemplateResponseDTO> {
     const item = new TemplateEntity({
       ...body,
+      admin: req.user,
     });
     const data = await this.templatesService.save(item);
     return {
@@ -81,6 +88,15 @@ export class TemplatesController {
       statusCode: HttpStatus.OK,
       message: ResponseMessage.QuerySuccess,
       data,
+    };
+  }
+
+  @Delete(':id')
+  async remove(@Param() params: FindOneTemplateRequestDTO): Promise<FindOneTemplateResponseDTO> {
+    await this.templatesService.remove(params.id);
+    return {
+      statusCode: HttpStatus.OK,
+      message: ResponseMessage.DeleteSuccess,
     };
   }
 }

@@ -4,4 +4,5 @@ export enum ResponseMessage {
   QuerySuccess = '查询成功',
   UploadSuccess = '上传成功',
   CreateSuccess = '创建成功',
+  DeleteSuccess = '删除成功',
 }

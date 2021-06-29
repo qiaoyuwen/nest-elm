@@ -25,4 +25,8 @@ export class TemplatesService {
   save(item: TemplateEntity): Promise<TemplateEntity> {
     return this.templateRepository.save(item);
   }
+
+  remove(id: number) {
+    return this.templateRepository.delete(id);
+  }
 }
